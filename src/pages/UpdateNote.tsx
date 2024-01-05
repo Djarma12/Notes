@@ -11,7 +11,7 @@ import ButtonGroup from '../components/ButtonGroup';
 function UpdateNote() {
   const navigate = useNavigate();
   const { noteId } = useParams();
-  const { getActiveNote } = useNote();
+  const { getActiveNote, updateNote } = useNote();
   const noteDetail = getActiveNote(Number(noteId));
 
   return (
@@ -20,12 +20,11 @@ function UpdateNote() {
         <Heading>
           Update <b className="text-blue-600">{noteDetail?.title}</b> note
         </Heading>
-        <ButtonGroup>
-          <Button variation="primary">Update</Button>
-          <Button variation="secondary" onClick={() => navigate('/')}>
+        {/* <ButtonGroup>
+          <Button variation="secondary" onClick={() => navigate(`/${noteId}`)}>
             Cancle
           </Button>
-        </ButtonGroup>
+        </ButtonGroup> */}
       </Header>
       <Main>
         <Form noteDetail={noteDetail} />

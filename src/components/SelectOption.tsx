@@ -1,16 +1,11 @@
 import { StylesConfig } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
+import { useNote } from '../context/NoteContext';
 
 export type SelectValues = {
   value: string;
   label: string;
 };
-
-const options: SelectValues[] = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
 
 type Option = SelectValues & {
   __isNew__: boolean;
@@ -31,18 +26,21 @@ type SelectOptionType = {
 };
 
 function SelectOption({ setTags, defaultValue }: SelectOptionType) {
+  const { getAllTags } = useNote();
+
   function handleSelect(option: any) {
     const tagsOption = option.map((tag: Option) => {
       return { value: tag.value, label: tag.label };
     });
     setTags(tagsOption);
   }
+
   return (
     <CreatableSelect
       onChange={handleSelect}
       isMulti
       isClearable
-      options={options}
+      options={getAllTags()}
       defaultValue={defaultValue}
       className="basic-multi-select w-96 text-xl"
       styles={colourStyles}

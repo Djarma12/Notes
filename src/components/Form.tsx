@@ -6,7 +6,7 @@ import Search from './Search';
 import SelectOption, { SelectValues } from './SelectOption';
 import TextArea from './TextArea';
 import { NoteType, useNote } from '../context/NoteContext';
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 
 type FormType = {
   noteDetail?: NoteType;
@@ -37,7 +37,7 @@ function Form({ noteDetail }: FormType) {
     }
     navigate('/');
   }
-  console.log(noteDetail);
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-10">
       <Search>
@@ -55,7 +55,7 @@ function Form({ noteDetail }: FormType) {
       />
       <ButtonGroup>
         <Button type="submit" variation="primary">
-          Save
+          {noteDetail ? 'Update' : 'Save'}
         </Button>
         <Button
           type="reset"

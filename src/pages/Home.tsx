@@ -18,7 +18,7 @@ function Home() {
   const navigate = useNavigate();
   const [tags, setTags] = useState<SelectValues[]>([]);
   const [search, setSearch] = useState<string>('');
-  const { notes } = useNote();
+  const { notes, removeAll } = useNote();
 
   return (
     <>
@@ -28,7 +28,11 @@ function Home() {
           <Button variation="primary" onClick={() => navigate('/new')}>
             Create
           </Button>
-          {/* <Button variation="secondary" >Edit Tags</Button> */}
+          {notes.length > 0 && (
+            <Button variation="danger" onClick={removeAll}>
+              Remove All
+            </Button>
+          )}
         </ButtonGroup>
       </Header>
       <Main>
@@ -48,9 +52,15 @@ function Home() {
                 ? note
                 : note.title.toLowerCase().includes(search.toLowerCase()),
             )
-            .map((note) => (
-              <NoteItem key={note.id} note={note} />
-            ))}
+            .filter((note) =>
+              tags.length === 0
+                ? note
+                : note.tags.some((tag) =>
+                    tags.some((desiredTag) => desiredTag.value === tag.value),
+                  ),
+            )
+            .map((note) => <NoteItem key={note.id} note={note} />)
+            .reverse()}
         </NoteList>
       </Main>
     </>
