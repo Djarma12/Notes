@@ -5,7 +5,11 @@ type ChildrenType = {
 };
 
 function ButtonGroup({ children }: ChildrenType) {
-  return <div className="flex justify-end gap-5">{children}</div>;
+  return (
+    <div className="flex flex-wrap justify-center gap-5 sm:justify-end">
+      {children}
+    </div>
+  );
 }
 
 export default ButtonGroup;

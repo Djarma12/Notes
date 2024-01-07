@@ -5,7 +5,7 @@ type ChildrenType = {
 };
 
 function Main({ children }: ChildrenType) {
-  return <div className="mx-auto max-w-screen-xl px-5">{children}</div>;
+  return <main className="mx-auto max-w-screen-xl px-5">{children}</main>;
 }
 
 export default Main;

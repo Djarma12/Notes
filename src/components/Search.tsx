@@ -5,7 +5,11 @@ type ChildrenType = {
 };
 
 function Search({ children }: ChildrenType) {
-  return <div className="flex justify-between">{children}</div>;
+  return (
+    <div className="flex flex-col items-center justify-between gap-5 md:flex-row">
+      {children}
+    </div>
+  );
 }
 
 export default Search;

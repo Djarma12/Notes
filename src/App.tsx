@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { NoteProvider } from './context/NoteContext';
+
 import Home from './pages/Home';
 import CreateNote from './pages/CreateNote';
-import { NoteProvider } from './context/NoteContext';
 import NoteDetail from './pages/NoteDetail';
 import UpdateNote from './pages/UpdateNote';
 

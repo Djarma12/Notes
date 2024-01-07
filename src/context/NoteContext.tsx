@@ -277,8 +277,12 @@ const NoteProvider = ({ children }: ChildrenType): ReactElement => {
     dispatch({ type: REDUCER_ACTION_TYPE.UPDATE, payload: updatedNote });
   }
 
-  function getAllTags() {
-    return notes.map((note) => note.tags).flat();
+  // If we have several of the same tags, we remove them so that only unique
+  function getAllTags(): SelectValues[] {
+    const allTags = notes.flatMap((note) => note.tags);
+    return Array.from(new Set(allTags.map((obj) => JSON.stringify(obj)))).map(
+      (str) => JSON.parse(str),
+    );
   }
 
   return (

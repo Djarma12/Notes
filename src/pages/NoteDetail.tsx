@@ -7,6 +7,8 @@ import Button from '../components/Button';
 import Main from '../components/Main';
 import NoteTagList from '../components/NoteTagList';
 import NoteExist from '../components/NoteExist';
+import Modal from '../components/Modal';
+import ConfirmRemove from '../components/ConfirmRemove';
 
 function NoteDetail() {
   const navigate = useNavigate();
@@ -30,9 +32,19 @@ function NoteDetail() {
           >
             Update
           </Button>
-          <Button variation="danger" onClick={handleRemoveNote}>
-            Remove
-          </Button>
+
+          <Modal>
+            <Modal.Open opens="remove-note">
+              <Button variation="danger">Remove</Button>
+            </Modal.Open>
+            <Modal.Window name="remove-note">
+              <ConfirmRemove
+                resourceName={noteDetail?.title}
+                onRemove={handleRemoveNote}
+              />
+            </Modal.Window>
+          </Modal>
+
           <Button variation="secondary" onClick={() => navigate('/')}>
             Go Back
           </Button>

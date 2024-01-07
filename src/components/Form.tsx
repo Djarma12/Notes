@@ -1,12 +1,14 @@
+import { FormEvent, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import Button from './Button';
 import ButtonGroup from './ButtonGroup';
 import Input from './Input';
 import Search from './Search';
 import SelectOption, { SelectValues } from './SelectOption';
 import TextArea from './TextArea';
+
 import { NoteType, useNote } from '../context/NoteContext';
-import { FormEvent, useRef, useState } from 'react';
 
 type FormType = {
   noteDetail?: NoteType;
@@ -34,8 +36,8 @@ function Form({ noteDetail }: FormType) {
       noteDetail?.id
         ? updateNote({ ...noteObj, id: noteDetail.id })
         : addNote(noteObj);
+      navigate('/');
     }
-    navigate('/');
   }
 
   return (
@@ -60,7 +62,7 @@ function Form({ noteDetail }: FormType) {
         <Button
           type="reset"
           variation="secondary"
-          onClick={() => navigate('/')}
+          onClick={() => navigate(`/${noteDetail?.id || ''}`)}
         >
           Cancle
         </Button>

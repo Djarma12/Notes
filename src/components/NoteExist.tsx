@@ -1,9 +1,10 @@
 import { ReactNode } from 'react';
-import { NoteType } from '../context/NoteContext';
+import { useNavigate } from 'react-router-dom';
+
 import Button from './Button';
 import Header from './Header';
 import Heading from './Heading';
-import { useNavigate } from 'react-router-dom';
+import { NoteType } from '../context/NoteContext';
 
 type NoteExist = {
   noteDetail: NoteType | undefined;
