@@ -17,7 +17,7 @@ type FormType = {
 function Form({ noteDetail }: FormType) {
   const navigate = useNavigate();
   const { addNote, updateNote } = useNote();
-  const [tags, setTags] = useState<SelectValues[]>([]);
+  const [tags, setTags] = useState<SelectValues[]>(noteDetail?.tags || []);
   const inputTitle = useRef<HTMLInputElement>(null);
   const textAreaBody = useRef<HTMLTextAreaElement>(null);
 
