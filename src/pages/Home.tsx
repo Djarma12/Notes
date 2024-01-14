@@ -49,9 +49,8 @@ function Home() {
         <Search>
           <Input
             placeHolder="Search..."
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setSearch(e.target.value)
-            }
+            onChange={(e) => setSearch(e.target.value)}
+            value={search}
           />
           <SelectOption setTags={setTags} />
         </Search>
