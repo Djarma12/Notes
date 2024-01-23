@@ -1,11 +1,10 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import '@testing-library/jest-dom';
 import NoteItem from '../../components/NoteItem';
 import { BrowserRouter } from 'react-router-dom';
-import userEvent from '@testing-library/user-event';
 
-const MookNoteItem = () => {
+const MockNoteItem = () => {
   return (
     <BrowserRouter>
       <NoteItem
@@ -31,25 +30,25 @@ const MookNoteItem = () => {
 
 describe('NoteItemTest', () => {
   it('Display note title', () => {
-    render(<MookNoteItem />);
+    render(<MockNoteItem />);
     const spanElement = screen.getByText('Note 1');
     expect(spanElement).toBeInTheDocument();
   });
 
   it('Display note tag 1', () => {
-    render(<MookNoteItem />);
+    render(<MockNoteItem />);
     const liElement = screen.getByText('Tag1');
     expect(liElement).toBeInTheDocument();
   });
 
   it('Display note tag 2', () => {
-    render(<MookNoteItem />);
+    render(<MockNoteItem />);
     const liElement = screen.getByText('Tag2');
     expect(liElement).toBeInTheDocument();
   });
 
   // test('full app rendering/navigating', async () => {
-  //   render(<MookNoteItem />);
+  //   render(<MockNoteItem />);
   //   const user = userEvent.setup();
   //   const spanElement = screen.getByText('Note 1');
   //   // verify page content for default route
@@ -64,7 +63,7 @@ describe('NoteItemTest', () => {
 
   // it('Handle click note item', () => {
   //   const mock = vi.fn();
-  //   render(<MookNoteItem />);
+  //   render(<MockNoteItem />);
   //   // const spanElement = screen.getByRole('listitem');
 
   //   // if (container.firstChild) fireEvent.click(container);

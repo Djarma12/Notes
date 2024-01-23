@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import TextArea from '../../components/TextArea';
 
-describe('Heading', () => {
+describe('TextArea', () => {
   const ref: { current: HTMLTextAreaElement | null } = { current: null };
 
   it('Test placeholder in textarea', () => {
@@ -38,5 +38,21 @@ describe('Heading', () => {
     );
 
     expect(ref.current?.value).toBe('Default value');
+  });
+
+  it('Test ref in textarea when type something', () => {
+    render(
+      <TextArea
+        placeHolder="This is text area"
+        defaultValue="Default value"
+        textAreaRef={ref}
+      />,
+    );
+
+    fireEvent.change(ref.current as HTMLTextAreaElement, {
+      target: { value: 'New value' },
+    });
+
+    expect(ref.current?.value).toBe('New value');
   });
 });

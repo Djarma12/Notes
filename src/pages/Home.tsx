@@ -12,7 +12,7 @@ import NoteList from '../components/NoteList';
 import NoteItem from '../components/NoteItem';
 
 import { useNote } from '../context/NoteContext';
-import { ChangeEvent, useState } from 'react';
+import {  useState } from 'react';
 import Modal from '../components/Modal';
 import ConfirmRemove from '../components/ConfirmRemove';
 

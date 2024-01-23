@@ -1,15 +1,17 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, renderHook, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import Input from '../../components/Input';
+import React, { ChangeEventHandler, useState } from 'react';
+import { act } from 'react-dom/test-utils';
 
 describe('Heading', () => {
-  const handleChange = vi.fn();
+  const setState = vi.fn();
   it('Test placeholder in Input', () => {
     render(
       <Input
         placeHolder="Input placeholder"
         value="Text in input"
-        onChange={handleChange}
+        onChange={setState}
       />,
     );
 
@@ -22,7 +24,7 @@ describe('Heading', () => {
       <Input
         placeHolder="This is text area"
         value="Text in input"
-        onChange={handleChange}
+        onChange={setState}
       />,
     );
 
@@ -30,22 +32,31 @@ describe('Heading', () => {
     expect(InputElement).toBeInTheDocument();
   });
 
-  it('Test onChange in Input', () => {
+  it('Test onChange, texting in Input', () => {
+    const { result } = renderHook(() => {
+      const [inputText, setInputText] = useState('Text in input');
+      return { inputText, setInputText };
+    });
+
     render(
       <Input
         placeHolder="Input placeholder"
-        value="Text in input"
-        onChange={(e) => handleChange(e.target.value)}
+        value={result.current.inputText}
+        onChange={(e) => result.current.setInputText(e.target.value)}
       />,
     );
 
     const inputElement: HTMLInputElement =
       screen.getByDisplayValue('Text in input');
 
-    fireEvent.change(inputElement, { target: { value: 't' } });
-    fireEvent.change(inputElement, { target: { value: 'te' } });
+    act(() => {
+      fireEvent.change(inputElement, { target: { value: 't' } });
+    });
 
-    expect(handleChange).toHaveBeenCalledTimes(2);
-    // expect(inputElement.value).toBe('te');
+    act(() => {
+      fireEvent.change(inputElement, { target: { value: 'te' } });
+    });
+
+    expect(result.current.inputText).toBe('te');
   });
 });

@@ -6,16 +6,16 @@ import Header from './Header';
 import Heading from './Heading';
 import { NoteType } from '../context/NoteContext';
 
-type NoteExist = {
-  noteDetail: NoteType | undefined;
+export type NoteExistType = {
+  noteDetailID: number | undefined;
   children: ReactNode;
 };
 
-function NoteExist({ noteDetail, children }: NoteExist) {
+function NoteExist({ noteDetailID, children }: NoteExistType) {
   const navigate = useNavigate();
   return (
     <>
-      {noteDetail ? (
+      {noteDetailID ? (
         children
       ) : (
         <Header>

@@ -22,7 +22,7 @@ function NoteDetail() {
   }
 
   return (
-    <NoteExist noteDetail={noteDetail}>
+    <NoteExist noteDetailID={noteDetail?.id}>
       <Header>
         <Heading>{noteDetail?.title}</Heading>
         <ButtonGroup>
