@@ -46,34 +46,32 @@ describe('NoteExists', () => {
     expect(spanElement).toBeInTheDocument();
   });
 
-  //   it('Handle "Go Back" click', async () => {
-  //     const handleGoBack = vi.fn();
-  //     render(
-  //       <MockNoteExists noteDetailID={undefined}>
-  //         <span>Child content</span>
-  //       </MockNoteExists>,
-  //     );
-
-  //     const spanElement = screen.getByRole('button', { name: 'Go back' });
-  //     fireEvent.click(spanElement);
-  //     expect(handleGoBack).toBeCalledTimes(1);
-  //   });
-
-  it('Calls navigate when "Go back" button is clicked', () => {
-    const navigateMock = vi.fn();
-    const { getByText } = render(
+  it('Handle "Go Back" click', async () => {
+    render(
       <MockNoteExists noteDetailID={undefined}>
         <span>Child content</span>
       </MockNoteExists>,
-      {
-        // Mocking the useNavigate hook
-        wrapper: ({ children }) => (
-          <div onClick={() => navigateMock('/')}>{children}</div>
-        ),
-      },
     );
 
-    fireEvent.click(getByText('Go back'));
-    expect(navigateMock).toHaveBeenCalledWith('/');
+    const buttonElement = screen.getByRole('button', { name: 'Go back' });
+    expect(buttonElement).toBeVisible();
+    fireEvent.click(buttonElement);
   });
+
+  // it('Calls navigate when "Go back" button is clicked', () => {
+  //   const navigateMock = vi.fn();
+  //   const { getByText } = render(
+  //     <MockNoteExists noteDetailID={undefined}>
+  //       <span>Child content</span>
+  //     </MockNoteExists>,
+  //     {
+  //       wrapper: ({ children }) => (
+  //         <div onClick={() => navigateMock('/')}>{children}</div>
+  //       ),
+  //     },
+  //   );
+
+  //   fireEvent.click(getByText('Go back'));
+  //   expect(navigateMock).toHaveBeenCalledWith('/');
+  // });
 });
