@@ -21,7 +21,7 @@ function Form({ noteDetail }: FormType) {
   const [title, setTitle] = useState<string>(noteDetail?.title || '');
   // const inputRef = useRef<HTMLInputElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
+  console.log(tags);
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (title && textAreaRef.current?.value && !!tags.length) {
@@ -45,7 +45,7 @@ function Form({ noteDetail }: FormType) {
           onChange={(e) => setTitle(e.target.value)}
           value={title}
         />
-        <SelectOption setTags={setTags} defaultValue={noteDetail?.tags} />
+        <SelectOption setTags={setTags} defaultValue={tags} />
       </Search>
       <TextArea
         placeHolder="Body"

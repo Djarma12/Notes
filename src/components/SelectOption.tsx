@@ -36,15 +36,17 @@ function SelectOption({ setTags, defaultValue }: SelectOptionType) {
   }
 
   return (
-    <CreatableSelect
-      onChange={handleSelect}
-      isMulti
-      isClearable
-      options={getAllTags()}
-      defaultValue={defaultValue}
-      className="basic-multi-select w-96 text-xl"
-      styles={colourStyles}
-    />
+    <>
+      <CreatableSelect
+        onChange={handleSelect}
+        isMulti
+        isClearable
+        options={getAllTags()}
+        defaultValue={defaultValue}
+        className="basic-multi-select w-96 text-xl"
+        styles={colourStyles}
+      />
+    </>
   );
 }
 

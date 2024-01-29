@@ -11,14 +11,31 @@ const mockTags: SelectValues[] = [
 const mockSetTags = vi.fn();
 
 describe('SelectOpiton', () => {
-  it('Test Select Option', async () => {
+  beforeEach(() => {
+    vi.mock('../../context/NoteContext', () => {
+      return {
+        useNote: () => {
+          return {
+            getAllTags: () => [
+              { value: 'tag1', label: 'Tag 1' },
+              { value: 'tag2', label: 'Tag 2' },
+            ],
+          };
+        },
+      };
+    });
+  });
+
+  afterEach(() => vi.clearAllMocks());
+
+  it('Test SelectOption to be in the document', async () => {
     render(<SelectOption setTags={mockSetTags} />);
 
     const selectElement = screen.getByRole('combobox');
     expect(selectElement).toBeInTheDocument();
   });
 
-  it('Test Select Option defaulValue', async () => {
+  it('Test defaulValue', async () => {
     render(<SelectOption setTags={mockSetTags} defaultValue={mockTags} />);
 
     mockTags.forEach((tag) => {
@@ -27,30 +44,43 @@ describe('SelectOpiton', () => {
     });
   });
 
-  it('Test onChange', async () => {
-    const mockSetTags = vi.fn();
-    const mockTags = [{ value: 'tag1', label: 'Tag 1' }];
+  it('Updates tags when an option is selected', async () => {
+    render(<SelectOption setTags={mockSetTags} />);
 
-    // Act
-    render(<SelectOption setTags={mockSetTags} defaultValue={mockTags} />);
-    const selectElement = screen.getByRole('combobox'); // Use screen to get the element
+    const selectElement = screen.getByRole('combobox');
+    screen.debug();
+    fireEvent.click(selectElement);
+    screen.debug();
 
-    fireEvent.change(selectElement, {
-      target: {
-        value: [
-          {
-            value: 'tag1',
-            label: 'Tag 1',
-            __isNew__: true,
-          },
-        ],
-      },
-    });
+    const tagOption1 = screen.getByText('Tag 1');
+    const tagOption2 = screen.getByText('Tag 2');
 
-    // Assert
-    expect(mockSetTags).toHaveBeenCalledTimes(1);
+    fireEvent.click(tagOption1);
+    fireEvent.click(tagOption2);
+
     expect(mockSetTags).toHaveBeenCalledWith([
       { value: 'tag1', label: 'Tag 1' },
+      { value: 'tag2', label: 'Tag 2' },
     ]);
   });
+
+  // it('Test onChange', async () => {
+  //   const mockTags = [{ value: 'tag1', label: 'Tag 1' }];
+
+  //   render(<SelectOption setTags={mockSetTags} defaultValue={mockTags} />);
+  //   const selectElement = screen.getByRole('combobox');
+
+  //   fireEvent.change(selectElement, {
+  //     target: {
+  //       value: [{ value: 'tag4', label: 'Tag 4', __isNew__: true }],
+  //     },
+  //   });
+  //   screen.debug();
+  //   const option = screen.getByText('Tag 4');
+  //   // expect(mockSetTags).toHaveBeenCalledTimes(1);
+  //   expect(option.textContent).toBe('Tag 4');
+  //   // expect(mockSetTags).toHaveBeenCalledWith([
+  //   //   { value: 'tag1', label: 'Tag 1' },
+  //   // ]);
+  // });
 });
