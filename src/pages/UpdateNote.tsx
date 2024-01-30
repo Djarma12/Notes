@@ -12,7 +12,7 @@ function UpdateNote() {
   const noteDetail = getActiveNote(Number(noteId));
 
   return (
-    <NoteExist noteDetail={noteDetail}>
+    <NoteExist noteDetailID={noteDetail?.id}>
       <Header>
         <Heading>
           Update <b className="text-blue-600">{noteDetail?.title}</b> note

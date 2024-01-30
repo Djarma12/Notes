@@ -270,7 +270,7 @@ const NoteProvider = ({ children }: ChildrenType): ReactElement => {
   }
 
   function getActiveNote(id: number | undefined) {
-    return notes.filter((note) => note.id === id)[0];
+    return notes.filter((note) => note.id === id)[0] || {};
   }
 
   function updateNote(updatedNote: NoteType) {

@@ -18,20 +18,16 @@ function Form({ noteDetail }: FormType) {
   const navigate = useNavigate();
   const { addNote, updateNote } = useNote();
   const [tags, setTags] = useState<SelectValues[]>(noteDetail?.tags || []);
-  const inputTitle = useRef<HTMLInputElement>(null);
-  const textAreaBody = useRef<HTMLTextAreaElement>(null);
+  const [title, setTitle] = useState<string>(noteDetail?.title || '');
+  // const inputRef = useRef<HTMLInputElement>(null);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(tags);
-    if (
-      inputTitle.current?.value &&
-      textAreaBody.current?.value &&
-      !!tags.length
-    ) {
+    if (title && textAreaRef.current?.value && !!tags.length) {
       const noteObj = {
-        title: inputTitle.current!.value,
-        body: textAreaBody.current!.value,
+        title,
+        body: textAreaRef.current!.value,
         tags,
       };
       console.log(noteObj);
@@ -47,14 +43,14 @@ function Form({ noteDetail }: FormType) {
       <Search>
         <Input
           placeHolder="Title"
-          inputTitle={inputTitle}
-          defaultValue={noteDetail?.title}
+          onChange={(e) => setTitle(e.target.value)}
+          value={title}
         />
         <SelectOption setTags={setTags} defaultValue={tags} />
       </Search>
       <TextArea
         placeHolder="Body"
-        textAreaBody={textAreaBody}
+        textAreaRef={textAreaRef}
         defaultValue={noteDetail?.body}
       />
       <ButtonGroup>
